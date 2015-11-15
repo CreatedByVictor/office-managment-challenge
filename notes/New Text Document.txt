@@ -105,7 +105,7 @@ originalDataset =
     "Shelbie Cervantes"
   ]
 }
-//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////
 
 Scenario: Declare "projects" to be the first-level entity for list 
 	Given that there are entities related to form projects with properties
@@ -153,7 +153,7 @@ Scenario: Declare "projects" to be the first-level entity for list
     (link: to '/index.html/#/projects')
     (link: to '/index.html/#/departments')
 """
-////////////////////////////////////////////////////////////////////////////////////////////
+
 Scenario: Declare "deadlines" to be the first-level entity for list 
 	Given that there are entities related to form projects with properties
 	When by href or ui-sref a user is routed to '/index.html/#/deadlines'
@@ -202,7 +202,7 @@ Scenario: Declare "deadlines" to be the first-level entity for list
     (link: to '/index.html/#/projects')
     (link: to '/index.html/#/departments')
 """
-//////////////////////////////////////////////////////////////////////////////////////////
+
 Scenario: Trigger "resources" to be the second-level sort for list 
 	Given that there are entities related to form projects with properties
 	When by href or ui-sref a user is routed to '/index.html/#/deadlines/resources'
@@ -242,7 +242,7 @@ Scenario: Trigger "resources" to be the second-level sort for list
     (link: to '/index.html/#/projects')
     (link: to '/index.html/#/departments')
 """
-//////////////////////////////////////////////////////////////////////////////////////////////
+
 Scenario: Show single-project view 
   Given that there are entities related to form projects with properties
   And projects have app-assigned ids or use an HTTP escaped project name for id

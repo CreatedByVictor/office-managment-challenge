@@ -1,0 +1,136 @@
+Scenario: Declare "deadlines" to be the first-level entity for list 
+	Given that there are entities related to form projects with properties
+	When by href or ui-sref a user is routed to '/index.html/#/deadlines'
+
+Scenario: Trigger "resources" to be the second-level sort for list 
+	Given that there are entities related to form projects with properties
+	When by href or ui-sref a user is routed to '/index.html/#/deadlines/resources'
+	Then the list should swap resource details for a calculated resource subtotal:
+
+Scenario: Show single-project view 
+  Given that there are entities related to form projects with properties
+  And projects have app-assigned ids or use an HTTP escaped project name for id
+  And the browser shows '/index.html/#/deadlines/resources'
+  When the user clicks on any project's properties in the list
+  Then by href or ui-sref the user is routed to 'index.html/#/deadlines/project/:id'
+  And the view should list all properties and resource details for that project:
+
+  /index.html/#/project/id
+  /index.html/#/projects
+  /index.html/#/projects/resources
+  /index.html/#/projects/departments
+  /index.html/#/projects/deadlines
+
+  /index.html/#/deadline/id
+  /index.html/#/deadlines
+  /index.html/#/deadlines/resources
+  /index.html/#/deadlines/departments
+  /index.html/#/deadlines/projects
+
+  /index.html/#/department/id
+  /index.html/#/departments
+  /index.html/#/departments/resources
+  /index.html/#/departments/projects
+  /index.html/#/departments/deadlines
+
+  /index.html/#/resource/id
+  /index.html/#/resources/
+  /index.html/#/resources/departments
+  /index.html/#/resources/projects
+  /index.html/#/resources/deadlines
+
+	Departments View:				[Departments]	>	[Projects]	>	[Deadline,[Resources]]
+	--------------------------------------------------------------------------------------------------
+		# departments 
+			# Project
+				1.Deadline
+				[Resources]
+
+	Projects View:					[Projects]		>	[Department,Deadline,[Resources]]	>	[N/A]
+	--------------------------------------------------------------------------------------------------
+		# Project
+			1.Department
+			1.Due Date Deadline
+			[Resources]
+
+	Deadlines View:					[Deadline]		>	[Projects]	>	[Department, [Resources]]
+	--------------------------------------------------------------------------------------------------
+		# Deadlines
+			# Projects
+				1.Department
+				[Resources]
+
+	Resources view 					[Resources]		>	[Projects]	>	[Department, Deadline]
+	--------------------------------------------------------------------------------------------------
+		# Resources
+			# Projects
+				1.Department
+				1.Deadline
+
+-----------------------------
+
+	Single Department View: 	[Department Name]	>	[Projects]	>	[Deadline,[Resources]]
+	--------------------------------------------------------------------------------------------------
+		Department Name
+			# Projects
+				1.Deadline
+				[Resources]
+
+		Department Name
+			# Deadline
+				Project
+				[resources]
+
+	Single Project View: 		[Project Name]		>	[Deadline,Department,[Resources]]	>	[N/A]
+	--------------------------------------------------------------------------------------------------
+		Project Name (Default (Deadline))
+			1.Deadline
+			1.Department
+			[Resources]
+
+		Project Name (Departments)
+			1 Department
+			1 Deadline
+			[Resource]
+
+		Project Name (Resources)
+			1 Department
+			1 Deadline
+			[Resource Count]
+
+
+
+	Single Deadline View: 		[Deadline Date]		>	[Projects]	>	[Deadline,Department,[Resources]]
+	--------------------------------------------------------------------------------------------------
+		Deadline (Default)
+			Projects
+				1.Department
+				[Resources]
+
+		Deadline (Sort by Department)
+			Department
+				Project
+				Resources
+
+		Deadline (Sort by Resources)
+			Resource Name
+				Department
+				Project
+
+
+	Single Resource View: 		[Resource Name]		>	[Projects]	>	[Deadline, Department]
+	--------------------------------------------------------------------------------------------------
+		Resource Name (Default (sort by project count))
+			# Projects
+				Deadline
+				Department
+
+		Resource Name (sort by deadlines)
+			# Deadlines
+				Projects
+				Department
+
+		Resource Name (sort by department)
+			Departments
+				Project
+				Deadline
