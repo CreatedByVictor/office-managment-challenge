@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+	<title>Data Organization Challenge</title>
+	<!--Javascript-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0-rc.2/angular.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	
+	<!--Bootstrap CSS Below-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+</head>
+<body>
+	<h1>{{Target.title}}<small>{{Target.sort}}</small></h1>
+	<ul class="firstClass">
+		<li class="firstClassTitle"><h2>First Title</h2></li>
+		<ul class="secondClass">
+			<li class="secondClassTitle"><h3>Second Title</h3></li>
+			<ul class="thirdClass">
+				<li class="thirdClassTitle"><h4>Third Title</h4></li>
+				<ul class="fourthClass">
+					<li class="fourthClassTitle"><h5>Fourth Title</h5></li>
+				</ul>
+			</ul>
+		</ul>
+	</ul>
+</body>
+</html>

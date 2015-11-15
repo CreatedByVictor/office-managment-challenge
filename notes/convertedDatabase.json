@@ -1,0 +1,117 @@
+var ConvertedDataset = {
+  "projects" :[
+    {
+      "id" : 1,
+      "name" : "Show Three Lists",
+      "resources" : [1,2,3,4,5,6,7],
+      "deadlineId" : 4,
+      "departmentId" : 1
+    },
+    {
+      "id" : 2,
+      "name" : "Make Stepped List",
+      "resources" : [7],
+      "deadlineId" : 4,
+      "departmentId" : 2
+    },
+    {
+      "id" : 3,
+      "name" : "Add UI-Router Rules",
+      "resources" : [3,4,5,6],
+      "deadlineId" : 2,
+      "departmentId" : 5
+    },
+    {
+      "id" : 4,
+      "name" : "Create Filters",
+      "resources" : [2,6],
+      "deadlineId" : 1,
+      "departmentId" : 4
+    },
+    {
+      "id" : 5,
+      "name" : "Sum Up Subtotals",
+      "resources" : [1],
+      "deadlineId" : 1,
+      "departmentId" : 5
+    }
+  ],
+  "departments" : [
+    {
+      "id":1,
+      "name":"App Engineering"
+    },
+    {
+      "id":2,
+      "name":"Marketing"
+    },
+    {
+      "id":3,
+      "name":"DBAdmin"
+    },
+    {
+      "id":4,
+      "name":"SysOps"
+    },
+    {
+      "id":5,
+      "name":"Embedded"
+    },
+    {
+      "id":6,
+      "name":"GroceryOps"
+    }
+  ],
+  "deadlines" : [
+    {
+      "id":1,
+      "date":"April 01, 2016 12:00:00"
+    },
+    {
+      "id":2,
+      "date":"March 15, 2016 12:00:00"
+    },
+    {
+      "id":3,
+      "date":"May 01, 2016 12:00:00"
+    },
+    {
+      "id":4,
+      "date":"January 01, 2016 12:00:00"
+    },
+    {
+      "id":5,
+      "date":"July 01, 2016 12:00:00"
+    },
+  ],
+  "resources" : [
+    {
+      "id":1,
+      "name":"Kirk Middleton"
+    },
+    {
+      "id":2,
+      "name":"Spenser Estrada"
+    },
+    {
+      "id":3,
+      "name":"Kierra Buckner"
+    },
+    {
+      "id":4,
+      "name":"Hunter Luna"
+    },
+    {
+      "id":5,
+      "name":"Ahmad Justice"
+    },
+    {
+      "id":6,
+      "name":"Breana Medina"
+    },
+    {
+      "id":7,
+      "name":"Shelbie Cervantes"
+    }
+  ]
+}

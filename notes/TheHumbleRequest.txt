@@ -1,0 +1,270 @@
+* = 0 or more
+1 = 1 and no more
+
+Project  *--1 Deadline
+Project  *--1 Department
+Project  *--* People (resources)
+
+Each project can have
+	1 deadline
+	1 Department
+	Many people Assigned to it.
+
+Each Department can have
+	Many projects
+		with 1 deadline
+	Many People
+
+Each Person
+	1 Department
+	Many projects
+		with one deadline
+		
+////////////////////////////////////////////////////////////////////
+
+Background:
+	Given that each Department can own zero or many Projects
+	And each Resource can be assigned to zero or more Projects
+	And Projects can have zero or more Resources assigned to them
+	And each Deadline can imposed on zero or more Projects
+	But each Project can only be given one Deadline
+	But each Project can only be associated with one Department
+
+Feature: An Auto-updating Three-level Hierarchical List
+	The application will create and maintain one hierarchical list.
+	The list supports three levels
+	The list is made from elements in the arrays in originalDataset.
+
+	The application may use whatever controls the programmer sees fit 
+	in order to assign and assemble the four categories of data into the hierarchy.
+	The application must link to or render these controls on every page.
+
+	The application must always respect the entity/relation rules above.  
+	The application must remove as well as add entities to the nodes in the list.
+	The application should immediately reflect additions or removals to the list.
+	The application always respects sorts, routing rules and constraints.
+	The application will 
+	- notify if the user attempts a move that breaks the rules and abort the move
+	- and/or correctly prevent rulebreaking moves in the control set
+
+	Using angular routing, the application will assign 
+	- Deadline, 
+	- Department or 
+	- Project 
+	as the primary level in the list
+ 
+ 	If there is no routing token, Department will be the default.
+ 	The application will sort the primary category in descending order.   
+
+	Using angular routing, the application will allow a secondary, descending sort:
+	the number of resources assigned to each project.   
+	In the secondary sort view, clicking in a project's property list re-routes
+	to a single project view
+
+	In the single project view, the full property and resource list will show
+	In the single project view, there will be a link back 
+	to the current primary and secondary sort
+
+
+////////////////////////////////////////////////////////////////////
+
+originalDataset =
+{
+  "deadlines" : [
+    "April 01, 2016 12:00:00",
+    "March 15, 2016 12:00:00",
+    "May 01, 2016 12:00:00",
+    "January 01, 2016 12:00:00",
+    "July 07, 2016 12:00:00"
+  ],
+  "projects" : 
+   [
+    "Show Three Lists",
+    "Make Stepped List",
+    "Add UI-Router Rules",
+    "Create Filters",
+    "Sum Up Subtotals"
+   ],
+  "departments" : 
+  [
+    "App Engineering",
+    "Marketing",
+    "DBAdmin"
+    "SysOps",
+    "Embedded",
+    "GroceryOps"
+  ],
+  "resources" : 
+  [
+    "Kirk Middleton",
+    "Spenser Estrada",
+    "Kierra Buckner",
+    "Hunter Luna",
+    "Ahmad Justice",
+    "Breana Medina",
+    "Shelbie Cervantes"
+  ]
+}
+////////////////////////////////////////////////
+
+Scenario: Declare "projects" to be the first-level entity for list 
+	Given that there are entities related to form projects with properties
+	When by href or ui-sref a user is routed to '/index.html/#/projects'
+	Then the list should render a structure like:
+	"""
+	(link: to '/index.html/#/projects/resources')
+
+    Add UI-Router Rules
+        Due: March 15, 2016 12:00:00
+        Dept: Embedded
+        Resource: Kierra Buckner
+        Resource: Hunter Luna
+        Resource: Ahmad Justice
+        Resource: Breana Medina
+
+    Create Filters
+        Due:  April 01, 2016 12:00:00
+        Dept: SysOps
+        Resource: Spenser Estrada
+        Resource: Breana Medina
+
+    Make Stepped List
+        Due: January 01, 2016 12:00:00
+        Dept: Marketing
+        Resource: Shelbie Cervantes
+
+    Show Three Lists
+        Due: January 01, 2016 12:00:00
+        Dept: App Engineering
+        Resource: Kirk Middleton
+        Resource: Spenser Estrada
+        Resource: Kierra Buckner
+        Resource: Hunter Luna
+        Resource: Ahmad Justice
+        Resource: Breana Medina
+        Resource: Shelbie Cervantes
+
+    Sum Up Subtotals
+        Due:  April 01, 2016 12:00:00
+        Dept: Embedded
+        Resource: Kirk Middleton  
+
+    (link: to '/index.html/#/deadlines')
+    (link: to '/index.html/#/projects')
+    (link: to '/index.html/#/departments')
+"""
+
+Scenario: Declare "deadlines" to be the first-level entity for list 
+	Given that there are entities related to form projects with properties
+	When by href or ui-sref a user is routed to '/index.html/#/deadlines'
+	Then the list should render a structure like:
+"""
+    (link: to '/index.html/#/deadlines/resources')
+
+    January 01, 2016 12:00:00
+
+    	Project: Make Stepped List    
+    	Dept: Marketing
+    		Resource: Shelbie Cervantes
+
+    	Project: Show Three Lists
+    	Dept: App Engineering
+    		Resource: Kirk Middleton
+	    	Resource: Spenser Estrada
+	    	Resource: Kierra Buckner
+	    	Resource: Hunter Luna
+	    	Resource: Ahmad Justice
+	    	Resource: Breana Medina
+	    	Resource: Shelbie Cervantes
+
+    March 15, 2016 12:00:00
+    	Project: Add UI-Router Rules
+        Dept: Embedded
+	        Resource: Kierra Buckner
+	        Resource: Hunter Luna
+	        Resource: Ahmad Justice
+	        Resource: Breana Medina
+
+    April 01, 2016 12:00:00
+    	Project: Create Filters
+        	Dept: SysOps
+        	Resource: Spenser Estrada
+        	Resource: Breana Medina
+
+      Project: Sum Up Subtotals
+        Dept: Embedded
+        	Resource: Kirk Middleton 
+
+    May 01, 2016 12:00:00
+    July 07, 2016 12:00:00
+
+    (link: to '/index.html/#/deadlines')
+    (link: to '/index.html/#/projects')
+    (link: to '/index.html/#/departments')
+"""
+
+Scenario: Trigger "resources" to be the second-level sort for list 
+	Given that there are entities related to form projects with properties
+	When by href or ui-sref a user is routed to '/index.html/#/deadlines/resources'
+	Then the list should swap resource details for a calculated resource subtotal:
+"""
+    (link: to '/index.html/#/deadlines')
+
+    January 01, 2016 12:00:00
+    	Project: Show Three Lists
+    	Dept: App Engineering
+    	Total Resources: 7
+
+    Project: Make Stepped List    
+    	Dept: Marketing
+    	Total Resources: 1
+
+    March 15, 2016 12:00:00
+    	Project: Add UI-Router Rules
+    	Dept: Embedded
+    	Total Resources: 4
+
+
+    April 01, 2016 12:00:00
+    	Project: Create Filters
+    	Dept: SysOps
+    	Total Resources: 2
+
+
+    	Project: Sum Up Subtotals
+    	Dept: Embedded
+    	Total Resources: 1
+
+    May 01, 2016 12:00:00
+    July 07, 2016 12:00:00
+
+    (link: to '/index.html/#/deadlines')
+    (link: to '/index.html/#/projects')
+    (link: to '/index.html/#/departments')
+"""
+
+Scenario: Show single-project view 
+  Given that there are entities related to form projects with properties
+  And projects have app-assigned ids or use an HTTP escaped project name for id
+  And the browser shows '/index.html/#/deadlines/resources'
+  When the user clicks on any project's properties in the list
+  Then by href or ui-sref the user is routed to 'index.html/#/deadlines/project/:id'
+  And the view should list all properties and resource details for that project:
+  """
+  (link: back to '/index.html/#/deadlines/resources')
+
+  Show Three Lists
+        Due: January 01, 2016 12:00:00
+        Dept: App Engineering
+        Resource: Kirk Middleton
+        Resource: Spenser Estrada
+        Resource: Kierra Buckner
+        Resource: Hunter Luna
+        Resource: Ahmad Justice
+        Resource: Breana Medina
+        Resource: Shelbie Cervantes
+
+    (link: to '/index.html/#/deadlines')
+    (link: to '/index.html/#/projects')
+    (link: to '/index.html/#/departments')        
+  """

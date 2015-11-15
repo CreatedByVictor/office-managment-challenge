@@ -1,0 +1,154 @@
+originalDataset =
+{
+  "deadlines" : [ 
+    "April 01, 2016 12:00:00",
+    "March 15, 2016 12:00:00",
+    "May 01, 2016 12:00:00",
+    "January 01, 2016 12:00:00",
+    "July 07, 2016 12:00:00"
+  ],
+  "projects" : [
+    "Show Three Lists",
+    "Make Stepped List",
+    "Add UI-Router Rules",
+    "Create Filters",
+    "Sum Up Subtotals"
+  ],
+  "departments" : [
+    "App Engineering",
+    "Marketing",
+    "DBAdmin"
+    "SysOps",
+    "Embedded",
+    "GroceryOps"
+  ],
+  "resources" : [
+    "Kirk Middleton",
+    "Spenser Estrada",
+    "Kierra Buckner",
+    "Hunter Luna",
+    "Ahmad Justice",
+    "Breana Medina",
+    "Shelbie Cervantes"
+  ]
+}
+
+resources=[
+  {
+    "id":1,
+    "name":"Kirk Middleton"
+  },
+  {
+    "id":2,
+    "name":"Spenser Estrada"
+  },
+  {
+    "id":3,
+    "name":"Kierra Buckner"
+  },
+  {
+    "id":4,
+    "name":"Hunter Luna"
+  },
+  {
+    "id":5,
+    "name":"Ahmad Justice"
+  },
+  {
+    "id":6,
+    "name":"Breana Medina"
+  },
+  {
+    "id":7,
+    "name":"Shelbie Cervantes"
+  }
+];
+
+projects = [
+  {
+    "id":1,
+    "name":"Show Three Lists",
+    "resources":[],
+    "deadline": X
+  },
+  {
+    "id":2,
+    "name":"Make Stepped List",
+    "resources":[],
+    "deadline": X
+  },
+  {
+    "id":3,
+    "name":"Add UI-Router Rules",
+    "resources":[],
+    "deadline": X
+  },
+  {
+    "id":4,
+    "name":"Create Filters",
+    "resources":[],
+    "deadline": X
+  },
+  {
+    "id":5,
+    "name":"Sum Up Subtotals",
+    "resources":[],
+    "deadline": X
+  }
+];
+
+departments = [
+  {
+    "id":1
+    "name":"App Engineering",
+    "resources":[]
+  },
+  {
+    "id":1
+    "name":"Marketing",
+    "resources":[]
+  },
+  {
+    "id":1
+    "name":"DBAdmin",
+    "resources":[]
+  },
+  {
+    "id":1
+    "name":"SysOps",
+    "resources":[]
+  },
+  {
+    "id":1
+    "name":"Embedded",
+    "resources":[]
+  },
+  {
+    "id":1
+    "name":"GroceryOps",
+    "resources":[]
+  }
+];
+
+deadlines = [
+  {
+    "id":1,
+    "date":"April 01, 2016 12:00:00"
+  },
+  {
+    "id":2,
+    "date":"March 15, 2016 12:00:00"
+  },
+  {
+    "id":3,
+    "date":"May 01, 2016 12:00:00"
+  },
+  {
+    "id":4,
+    "date":"January 01, 2016 12:00:00"
+  },
+  {
+    "id":5,
+    "date":"July 01, 2016 12:00:00"
+  },
+];
