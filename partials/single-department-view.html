@@ -1,3 +1,27 @@
 <div>
+	<div>
+		<h1>Department: {{department.name || ""}}</h1>
+	</div>
+	<div>
+		<div sort-bar></div>
+	</div>
+	<div>
+		<ul>
+			<li>Projects:</li>
+			<ul ng-repeat="project in department.projects" ng-show="department.projects.length">
+				<li><a ng-href="#/project/{{project.id}}">{{project.name || ""}}</a></li>
+				<ul>
+					<li>Due: <a ng-href="#/deadline/{{project.deadlineId}}">{{getDeadline(project.deadlineId).date}}</a></li>
+					<li ng-show="project.resources.length">Resources:</li>
+					<ul>
+						<li ng-repeat="resource in project.resources"><a ng-href="#/resource/{{resource}}">{{getResource(resource).name}}</a></li>
+					</ul>
+				</ul>
+			</ul>
+			<ul ng-hide="department.projects.length">
+				<em>No projects.</em>
+			</ul>
+		</ul>
+	</div>
 	
 </div>
