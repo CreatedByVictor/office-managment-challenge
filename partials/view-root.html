@@ -1,0 +1,11 @@
+<div>
+	<div>
+		<div ui-view="title"></div>
+	</div>
+	<div ng-hide="('department' | includedByState) || ('project' | includedByState) || ('deadline' | includedByState) || ('resource' | includedByState)">
+		<div sort-bar></div>
+	</div>
+	<div>
+		<div ui-view="main"></div>
+	</div>
+</div>

@@ -1,13 +1,9 @@
 <div>
 	<div>
-		<h1>Department: {{department.name || ""}}</h1>
-	</div>
-	<div>
-		<div sort-bar></div>
-	</div>
-	<div>
 		<ul>
-			<li>Projects:</li>
+			<li ng-show="department.projects.length > 1">Projects:</li>
+			<li ng-show="department.projects.length = 1">Project:</li>
+			<li ng-hide="department.projects.length"><em>No Projects</em></li>
 			<ul ng-repeat="project in department.projects" ng-show="department.projects.length">
 				<li><a ng-href="#/project/{{project.id}}">{{project.name || ""}}</a></li>
 				<ul>
@@ -17,9 +13,6 @@
 						<li ng-repeat="resource in project.resources"><a ng-href="#/resource/{{resource}}">{{getResource(resource).name}}</a></li>
 					</ul>
 				</ul>
-			</ul>
-			<ul ng-hide="department.projects.length">
-				<em>No projects.</em>
 			</ul>
 		</ul>
 	</div>

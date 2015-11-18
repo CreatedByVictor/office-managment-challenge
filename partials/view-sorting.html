@@ -1,9 +1,9 @@
 <div>
 	<p>Sort By</p>
 	<div class="btn-group">
-		<label ng-hide=" 'projects'		| isState" class="btn btn-info btn-sm" ng-model="currentSort" uib-btn-radio="'Projects'">Projects</label>
-		<label ng-hide=" 'resources'	| isState" class="btn btn-info btn-sm" ng-model="currentSort" uib-btn-radio="'Resources'">Resources</label>
-		<label ng-hide=" 'departments'	| isState" class="btn btn-info btn-sm" ng-model="currentSort" uib-btn-radio="'Departments'">Departments</label>
-		<label ng-hide=" 'deadlines'	| isState" class="btn btn-info btn-sm" ng-model="currentSort" uib-btn-radio="'Deadlines'">Deadlines</label>
+		<label ui-sref=".by-project" ng-hide=" ('projects' | includedByState) || ('project' | includedByState )" class="btn btn-info btn-xs" ng-model="currentSort" uib-btn-radio="'ProjectCount'">Project Count</label>
+		<label ui-sref=".by-resource" ng-hide=" ('resources'	| includedByState) || ('resource' | includedByState )" class="btn btn-info btn-xs" ng-model="currentSort" uib-btn-radio="'ResourceCount'">Resource Count</label>
+		<label ui-sref=".by-department" ng-hide=" ('departments' | includedByState) || ('department' | includedByState )" class="btn btn-info btn-xs" ng-model="currentSort" uib-btn-radio="'DepartmentCount'">Department Count</label>
+		<label ui-sref=".by-deadline" ng-hide=" ('deadlines' | includedByState) || ('deadline' | includedByState )" class="btn btn-info btn-xs" ng-model="currentSort" uib-btn-radio="'DeadlineDate'">Deadline Date</label>
 	</div>
 </div>

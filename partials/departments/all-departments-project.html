@@ -1,0 +1,28 @@
+<div>
+	<div ng-repeat="dept in departments | orderBy : '-projects.length' ">
+		<ul>
+			<li>
+				<h2>
+					<a ui-sref="department({ id: dept.id })">{{dept.name || ""}}</a> 
+					<small ng-hide="dept.projects.length == 0">Project Count: {{dept.projects.length}}</small>
+				</h2>
+			</li>
+			<ul ng-repeat="project in dept.projects" ng-show="dept.projects.length">
+				<li>Project: <a ui-sref="project({ id: project.id })">{{project.name}}</a></li>
+				<ul>
+					<li>Due: 
+						<a ng-href="#/deadline/{{project.deadlineId}}">
+						{{getDeadline(project.deadlineId).date}}</a> 
+						(<span am-time-ago="getDeadline(project.deadlineId).date_epoch"></span>)
+					</li>
+					<li ng-repeat="resource in project.resources">
+						<a ui-sref="resource({ id: resource })">{{getResource(resource).name}}</a>
+					</li>
+				</ul>
+			</ul>
+			<ul ng-hide="dept.projects.length">
+				<em>No projects.</em>
+			</ul>
+		</ul>
+	</div>
+</div>
