@@ -136,11 +136,11 @@
 		// Internal Helpers //
 		//////////////////////
 
-		function _getIndexOfId(){
-			var targetIndex = -1;
+		function _getIndexOfId(id,arrayName){
+			var targetIndex = null;
 			for (var i = 0; i < ConvertedDataset[arrayName].length; i++){
 				if (ConvertedDataset[arrayName][i].id == id){
-					targetIndex = id;
+					targetIndex = i;
 				}
 			}
 			return targetIndex;
@@ -166,8 +166,8 @@
 				return output;
 			}
 			else {
-				return null;
 				console.error("Could not retreve an object with the id " + id + " from " + arrayName);
+				return null;
 			}
 		};
 		function _addOneToLargestId(array){
@@ -221,7 +221,7 @@
 
 			for (var i = 0; i < inputArray.length; i++){
 				var selectedDate = Date.parse(inputArray[i].date);
-				console.log("selectedDate:", selectedDate);
+				//console.log("selectedDate:", selectedDate);
 				if ((selectedDate - currentEpoch) > 0){
 					if (!output){ output = selectedDate;}
 					else{
@@ -243,7 +243,9 @@
 			var output = inputObject;
 			output["id"] = _addOneToLargestId(ConvertedDataset['projects']);
 			
-			ConvertedDataset["projects"].push(object);
+			ConvertedDataset["projects"].push(output);
+			return getProject(output.id);
+			//console.log(listAllProjects());
 		};
 		function addDepartment(name){
 			var output = {
@@ -484,8 +486,9 @@
 			var output = [];
 			var currentProjects = listAllProjects();
 			for (var i = 0; i < currentProjects.length; i++){
-				if (currentProjects[i].deadline == deadlineId){
-					output.push(project.id);
+				if (currentProjects[i].deadlineId == deadlineId){
+					output.push(currentProjects[i].id);
+					//console.log("deadline Project:", currentProjects[i]);
 				}
 			}
 			return output;	
@@ -497,9 +500,11 @@
 
 			for (var i = 0; i < deadlineProjects.length; i++){
 				var resources = getProjectResourcesArray(deadlineProjects[i]);
-				for (var x = 0; x < resources.length; x++){
-					var resource = resources[x];
-					output = _pushIfUnique(output,resource);
+				if (resources){
+					for (var x = 0; x < resources.length; x++){
+						var resource = resources[x];
+						output = _pushIfUnique(output,resource);
+					}
 				}
 			}
 
@@ -600,7 +605,7 @@
 
 			// Returns //
 			"getAllData": 					getAllData,
-
+			"getIndexOfId": 				_getIndexOfId, //this is a helper that I intentionally exposed.
 			/*
 			"listAllProjects": 				listAllProjects,
 			"listAllDeadlines": 			listAllDeadlines,

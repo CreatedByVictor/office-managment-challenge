@@ -1,9 +1,10 @@
 <div>
 	<div>
-		<div ui-view="title"></div>
+		<h1>All {{targetName}} <small ng-show="'resources' | includedByState">sorted by Resource Count</small></h1>
 	</div>
-	<div ng-hide="('department' | includedByState) || ('project' | includedByState) || ('deadline' | includedByState) || ('resource' | includedByState)">
-		<div sort-bar></div>
+	<div> {{$state.$current.name}}
+		Sort {{targetName}} by Resource Count: 
+		<button class="btn btn-primary btn-xs" ui-sref=".resources">TOGGLE</button>
 	</div>
 	<div>
 		<div ui-view="main"></div>

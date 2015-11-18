@@ -1,0 +1,8 @@
+<div>
+	<h3><span class="dimmer">Project:</span> {{project.name}}</h3>
+	<ul>
+		<li><span class="dimmer">Due:</span> {{project.deadline.date}}</li>
+		<li><span class="dimmer">Dept:</span> {{project.department.name}}</li>
+		<li ng-repeat="resource in project.resources"><span class="dimmer">Resource:</span> {{resource.name}}</li>
+	</ul>
+</div>

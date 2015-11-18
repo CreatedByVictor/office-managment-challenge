@@ -1,7 +1,7 @@
 strict:true;
 
 (function(){
-	var app = angular.module('OrganizationApp',['ui.router', 'ui.bootstrap','FactoryModule', 'angularMoment']);
+	var app = angular.module('OrganizationApp',['ui.router', 'ui.bootstrap','FactoryModule']);
 	//console.log("[app.js loaded.]");
 
 	// Notice! I am using Angular Moment. This is purely for asthetics 
@@ -15,108 +15,72 @@ strict:true;
 			.state('departments',{
 				url:'/departments',
 				views:{
-					'root':{
-						templateUrl:'partials/view-root.html',
-					},
-					'title@departments':{
-						template:"<h1>All Departments <small>By Project Count</small></h1>"
-					},
-					'main@departments':{
-						templateUrl:'partials/departments/all-departments-project.html',
+					'@':{
+						templateUrl:'partials/departments/all-departments-regular.html',
+						controller: 'DepartmentsController'
+					}
+				}
+			}).state('departments.resources',{
+				url:'/resources',
+				views:{
+					'@':{
+						templateUrl:'partials/departments/all-departments-resource.html',
 						controller: 'DepartmentsController'
 					}
 				}
 			})
-			.state('departments.by-project',{
-				url:'/by-project',
-				views:{
-					'title@departments':{
-						template:"<h1>All Departments <small>By Project Count</small></h1>"
-					},
-					'main@departments':{
-						templateUrl:'partials/departments/all-departments-project.html',
-						controller: 'DepartmentsController',
-					}
-				}
-			})
-			.state('departments.by-resource',{
-				url:'/by-resource',
-				views:{
-					'title@departments':{
-						template:"<h1>All Departments <small>By Resource Count</small></h1>"
-					},
-					'main@departments':{
-						templateUrl:"partials/departments/all-departments-resource.html",
-						controller: 'DepartmentsController'
-					}
-				}
-			})
-			.state('departments.by-deadline',{
-				url:'/by-deadline',
-				views:{
-					'title@departments':{
-						template:"<h1>All Departments <small>By Deadline Date</small></h1>"
-					},
-					'main@departments':{
-						templateUrl:'partials/departments/all-departments-deadline.html',
-						controller: 'DepartmentsController'
-					}
-				}
-			})
-			//Single Department:
-			.state('department',{
-				url:'/department/{id:int}',
-				views:{
-					'root':{
-						templateUrl:'partials/view-root.html',
-					},
-					'title@department':{
-						template:"<h1>{{department.name || ''}} <small>Department</small></h1>",
-						controller:'DepartmentController'
-
-					},
-					"main@department":{
-						templateUrl:'partials/departments/single-department.html',
-						controller:'DepartmentController'
-					}
-				}
-			})
-			//End of Departments.
-
 		//Deadline States
 			.state('deadlines',{
 				url:'/deadlines',
-				templateUrl:'partials/deadlines/all-deadlines-view.html'
+				views:{
+					'@':{
+						templateUrl:'partials/deadlines/all-deadlines-time.html',
+						controller:'DeadlinesController'
+					}
+				}
 			})
-			.state('deadline',{
-				url:'/deadline/{id:int}',
-				templateUrl:'partials/deadlines/single-deadline-view.html'
-			})
-
-		//Resource States
-			.state('resources',{
-				url:'/resources',
-				templateUrl:'partials/resources/all-resources-view.html'
-			})
-			.state('resource',{
-				url:'/resource/{id:int}',
-				templateUrl:'partials/resources/single-resource-view.html'
-			})
-
 		//Project States
 			.state('projects',{
 				url:'/projects',
-				templateUrl:'partials/projects/all-projects-view.html'
+				views:{
+					'@':{
+						templateUrl:'partials/projects/all-projects-view.html',
+						controller: 'ProjectsController'
+					}
+
+				}
 			})
 			.state('project',{
 				url:'/project/{id:int}',
-				templateUrl:'partials/projects/single-project-view.html'
-			});
+				views:{
+					'@':{
+						templateUrl:'partials/projects/single-project.html',
+						controller:'ProjectController'
+					}
+				}
+			})
 	});
 
 // Department Controllers:
-	app.controller('DepartmentsController', ['$scope', 'DataFactory',  function($scope,DataFactory){
+	app.controller('DepartmentsController',	['$scope', 'DataFactory', '$state', function($scope,DataFactory, $state){
 		$scope.departments = DataFactory.listAllDepartments();
+		$scope.targetName = "Departments";
+
+		$scope.addBadger = function(name, dept_id){
+			var newProject = {
+				"name":name + "Badger",
+				"departmentId":dept_id,
+				"deadlineId": 1,
+				"resources":[1,3,5]
+			};
+			var result = DataFactory.getProject(DataFactory.addProject(newProject).id);
+			//console.log("Added a Project?");
+			var index = DataFactory.getIndexOfId(dept_id,"departments");
+			$scope.departments[index].projects.push(newProject);
+			//console.log($scope.departments[index].projects);
+			//console.log(result);
+		}
+
 		$scope.getProject = function(project_id){
 			return DataFactory.getProject(project_id);
 		};
@@ -127,7 +91,7 @@ strict:true;
 			return DataFactory.getDeadline(deadline_Id);
 		};
 		}]);
-	app.controller('DepartmentController', ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
+	app.controller('DepartmentController', 	['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
 		$scope.department = DataFactory.getDepartment($stateParams.id);
 		}]);
 // Project Controllers:
@@ -143,7 +107,7 @@ strict:true;
 			return DataFactory.getDeadline(deadline_Id);
 		};
 		}]);
-	app.controller('ProjectsController', ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
+	app.controller('ProjectController',  ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
 		$scope.project = DataFactory.getProject($stateParams.id);
 		}]);
 // Resource Controllers:
@@ -159,7 +123,7 @@ strict:true;
 			return DataFactory.getDeadline(deadline_Id);
 		};
 		}]);
-	app.controller('ResourceController', ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
+	app.controller('ResourceController',  ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
 		$scope.resource = DataFactory.getResource($stateParams.id);
 		}]);
 // Deadline Controllers:
@@ -175,7 +139,7 @@ strict:true;
 			return DataFactory.getProject(project_id);
 		};
 		}]);
-	app.controller('DeadlineController', ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
+	app.controller('DeadlineController',  ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
 		$scope.deadline = DataFactory.getDeadline($stateParams.id);
 		}]);
 
@@ -185,7 +149,7 @@ strict:true;
 			controller: function($scope, $element, $attrs, $transclude, $state) {
 				$scope.currentSort = "";
 			},
-			restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+			restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
 			templateUrl: 'partials/view-sorting.html',
 			replace: true,
 		};

@@ -15,20 +15,15 @@
 	
 	<script type="text/javascript" 
 	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
-	
-	<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-	
-	<script type="text/javascript" 
-	src="https://cdn.jsdelivr.net/angular.moment/1.0.0-beta.3/angular-moment.min.js"></script>
 
-	<script type="text/javascript" 
-	src="js/app.js"></script>
-	<script type="text/javascript" 
-	src="js/dataFactory.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/dataFactory.js"></script>
 	
 	<!--Bootstrap CSS Below-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" 
+		integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" 
+		crossorigin="anonymous">
+		
 	<link rel="stylesheet" href="https://bootswatch.com/darkly/bootstrap.css">
 	<link rel="stylesheet" href="css/adjustments.css">
 </head>
@@ -40,22 +35,17 @@
 			<li><a ng-hide="" ui-sref="departments">All Departments</a></li>
 			<li><a ng-hide="" ui-sref="projects">All Projects</a></li>
 			<li><a ng-hide="" ui-sref="deadlines">All Deadlines</a></li>
-			<li><a ng-hide="" ui-sref="resources">All Resources</a></li>
+			<li><a ng-hide="true" ui-sref="resources">All Resources</a></li>
 				</ul>
 		</div>
 	</nav>
-
+	<ol class="breadcrumb">
+	  <li><a href="#">{{state.current}}</a></li>
+	  <li><a href="#">Library</a></li>
+	  <li class="active">Data</li>
+	</ol>
 	<div class="container">
-		<div ui-view="root"></div>
-	</div>
-	
-	<div class="container">
-		<ul class="list-unstyled">
-			<li><a ng-hide="" ui-sref="departments">All Departments</a></li>
-			<li><a ng-hide="" ui-sref="projects">All Projects</a></li>
-			<li><a ng-hide="" ui-sref="deadlines">All Deadlines</a></li>
-			<li><a ng-hide="" ui-sref="resources">All Resources</a></li>
-		</ul>
+		<div ui-view=""></div>
 	</div>
 
 </body>

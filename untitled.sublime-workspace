@@ -4,6 +4,94 @@
 		"selected_items":
 		[
 			[
+				"Re",
+				"ResourceViewValue"
+			],
+			[
+				"resource",
+				"isResourceView"
+			],
+			[
+				"Depart",
+				"Departments"
+			],
+			[
+				"depar",
+				"departments"
+			],
+			[
+				"temp",
+				"templateUrl"
+			],
+			[
+				"Dep",
+				"Departments"
+			],
+			[
+				"depart",
+				"departments"
+			],
+			[
+				"Pro",
+				"ProjectsController"
+			],
+			[
+				"curre",
+				"currentProjects"
+			],
+			[
+				"by",
+				"by-resource"
+			],
+			[
+				"view",
+				"view-root"
+			],
+			[
+				"pro",
+				"project_id"
+			],
+			[
+				"dep",
+				"department_id"
+			],
+			[
+				"get",
+				"getDepartment"
+			],
+			[
+				"ng-s",
+				"ng-show	AngularJS"
+			],
+			[
+				"data",
+				"DataFactory"
+			],
+			[
+				"date",
+				"date_epoch"
+			],
+			[
+				"curr",
+				"currentEpoch"
+			],
+			[
+				"cur",
+				"currentDate"
+			],
+			[
+				"near",
+				"nearestDeadlineParser"
+			],
+			[
+				"tem",
+				"template"
+			],
+			[
+				"Depa",
+				"DepartmentsController"
+			],
+			[
 				"getDep",
 				"getDepartment"
 			],
@@ -18,10 +106,6 @@
 			[
 				"deptPro",
 				"deptProjectCount"
-			],
-			[
-				"depar",
-				"departments"
 			],
 			[
 				"de",
@@ -41,10 +125,6 @@
 			],
 			[
 				"getPr",
-				"getProject"
-			],
-			[
-				"get",
 				"getProject"
 			],
 			[
@@ -104,16 +184,8 @@
 				"getAllResourceDeadlineIds"
 			],
 			[
-				"depart",
-				"departments"
-			],
-			[
 				"getPro",
 				"getProject"
-			],
-			[
-				"resource",
-				"Resource"
 			],
 			[
 				"getAllDepart",
@@ -140,10 +212,6 @@
 				"resourceIds"
 			],
 			[
-				"Depart",
-				"DepartmentController"
-			],
-			[
 				"getAlldept",
 				"getAllDepartmentProjectIds"
 			],
@@ -162,10 +230,6 @@
 			[
 				"padding",
 				"padding-left"
-			],
-			[
-				"curr",
-				"currentProjects"
 			],
 			[
 				"getAllDe",
@@ -256,10 +320,6 @@
 				"deadlineProjects"
 			],
 			[
-				"dep",
-				"department"
-			],
-			[
 				"out",
 				"output"
 			],
@@ -276,16 +336,8 @@
 				"getAllResourcesProjectIds"
 			],
 			[
-				"curre",
-				"currentDeadline"
-			],
-			[
 				"getproje",
 				"getProjectDeadlineId"
-			],
-			[
-				"cur",
-				"currentProjects"
 			],
 			[
 				"deadline",
@@ -294,10 +346,6 @@
 			[
 				"_Get",
 				"_getIndexOfId"
-			],
-			[
-				"pro",
-				"project"
 			],
 			[
 				"newd",
@@ -328,10 +376,6 @@
 				"arrayName"
 			],
 			[
-				"view",
-				"view-sorting"
-			],
-			[
 				"new",
 				"newResource"
 			],
@@ -351,73 +395,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 1687,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "partials/all-departments-view.html",
-			"settings":
-			{
-				"buffer_size": 852,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "partials/single-department-view.html",
-			"settings":
-			{
-				"buffer_size": 763,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/app.js",
-			"settings":
-			{
-				"buffer_size": 18008,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "css/adjustments.css",
-			"settings":
-			{
-				"buffer_size": 23,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "var ConvertedDataset = {\n  \"projects\" :[\n    {\n      \"id\" : 1,\n      \"name\" : \"Show Three Lists\",\n      \"resources\" : [1,2,3,4,5,6,7],\n      \"deadlineId\" : 4,\n      \"departmentId\" : 1\n    },\n    {\n      \"id\" : 2,\n      \"name\" : \"Make Stepped List\",\n      \"resources\" : [7],\n      \"deadlineId\" : 4,\n      \"departmentId\" : 2\n    },\n    {\n      \"id\" : 3,\n      \"name\" : \"Add UI-Router Rules\",\n      \"resources\" : [3,4,5,6],\n      \"deadlineId\" : 2,\n      \"departmentId\" : 5\n    },\n    {\n      \"id\" : 4,\n      \"name\" : \"Create Filters\",\n      \"resources\" : [2,6],\n      \"deadlineId\" : 1,\n      \"departmentId\" : 4\n    },\n    {\n      \"id\" : 5,\n      \"name\" : \"Sum Up Subtotals\",\n      \"resources\" : [1],\n      \"deadlineId\" : 1,\n      \"departmentId\" : 5\n    }\n  ],\n  \"departments\" : [\n    {\n      \"id\":1,\n      \"name\":\"App Engineering\"\n    },\n    {\n      \"id\":2,\n      \"name\":\"Marketing\"\n    },\n    {\n      \"id\":3,\n      \"name\":\"DBAdmin\"\n    },\n    {\n      \"id\":4,\n      \"name\":\"SysOps\"\n    },\n    {\n      \"id\":5,\n      \"name\":\"Embedded\"\n    },\n    {\n      \"id\":6,\n      \"name\":\"GroceryOps\"\n    }\n  ],\n  \"deadlines\" : [\n    {\n      \"id\":1,\n      \"date\":\"April 01, 2016 12:00:00\"\n    },\n    {\n      \"id\":2,\n      \"date\":\"March 15, 2016 12:00:00\"\n    },\n    {\n      \"id\":3,\n      \"date\":\"May 01, 2016 12:00:00\"\n    },\n    {\n      \"id\":4,\n      \"date\":\"January 01, 2016 12:00:00\"\n    },\n    {\n      \"id\":5,\n      \"date\":\"July 01, 2016 12:00:00\"\n    },\n  ],\n  \"resources\" : [\n    {\n      \"id\":1,\n      \"name\":\"Kirk Middleton\"\n    },\n    {\n      \"id\":2,\n      \"name\":\"Spenser Estrada\"\n    },\n    {\n      \"id\":3,\n      \"name\":\"Kierra Buckner\"\n    },\n    {\n      \"id\":4,\n      \"name\":\"Hunter Luna\"\n    },\n    {\n      \"id\":5,\n      \"name\":\"Ahmad Justice\"\n    },\n    {\n      \"id\":6,\n      \"name\":\"Breana Medina\"\n    },\n    {\n      \"id\":7,\n      \"name\":\"Shelbie Cervantes\"\n    }\n  ]\n}",
-			"file": "notes/convertedDataset.json",
-			"file_size": 1866,
-			"file_write_time": 130920732351724932,
-			"settings":
-			{
-				"buffer_size": 1866,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "partials/view-sorting.html",
-			"settings":
-			{
-				"buffer_size": 621,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "partials/all-deadlines-view.html",
-			"settings":
-			{
-				"buffer_size": 68,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -458,18 +435,28 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/home/victor/Github/office-managment-challenge",
-		"/home/victor/Github/office-managment-challenge/css",
-		"/home/victor/Github/office-managment-challenge/js",
-		"/home/victor/Github/office-managment-challenge/notes",
-		"/home/victor/Github/office-managment-challenge/partials"
-	],
 	"file_history":
 	[
+		"/home/victor/Github/office-managment-challenge/index.html",
+		"/home/victor/Github/office-managment-challenge/js/app.js",
+		"/home/victor/Github/office-managment-challenge/js/factory.js",
+		"/home/victor/Github/office-managment-challenge/partials/departments/all-departments-resource.html",
+		"/home/victor/Github/office-managment-challenge/partials/view-root.html",
+		"/home/victor/Github/office-managment-challenge/partials/departments/all-departments-regular.html",
 		"/home/victor/Github/office-managment-challenge/css/adjustments.css",
+		"/home/victor/Github/office-managment-challenge/partials/view-sorting.html",
+		"/home/victor/Github/office-managment-challenge/partials/departments/single-department.html",
+		"/home/victor/Github/office-managment-challenge/partials/deadlines/all-deadlines-department.html",
+		"/home/victor/Github/office-managment-challenge/js/dataFactory.js",
+		"/home/victor/Github/office-managment-challenge/partials/departments/all-departments-deadline.html",
+		"/home/victor/Github/office-managment-challenge/partials/departments/all-departments-project.html",
+		"/home/victor/Github/office-managment-challenge/partials/departments/single-department-project.html",
+		"/home/victor/Github/office-managment-challenge/partials/departments/departmentsRoot.html",
+		"/home/victor/Github/office-managment-challenge/partials/departments/single-department-deadline.html",
+		"/home/victor/Github/office-managment-challenge/partials/all-deadlines-view.html",
+		"/home/victor/Github/office-managment-challenge/notes/convertedDataset.json",
 		"/home/victor/Github/office-managment-challenge/partials/all-departments-view.html",
+		"/home/victor/Github/office-managment-challenge/partials/single-department-view.html",
 		"/home/victor/Github/office-managment-challenge/partials/all-resources-view.html",
 		"/home/victor/Github/office-managment-challenge/partials/all-projects-view.html",
 		"/home/victor/fogwoods/blackoak/public/index.html",
@@ -478,7 +465,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -492,6 +479,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"console.log",
+			">\n",
 			"		<a></a>",
 			">\n"
 		],
@@ -511,239 +500,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1687,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15,
-								15
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "partials/all-departments-view.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 852,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								23,
-								23
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "partials/single-department-view.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 763,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								763,
-								763
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "js/app.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 18008,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1946,
-								1946
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 240.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "css/adjustments.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 23,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								21,
-								21
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "notes/convertedDataset.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1866,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								26,
-								26
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "partials/view-sorting.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 621,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								499,
-								499
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "partials/all-deadlines-view.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 68,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								25,
-								25
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -781,6 +539,10 @@
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 106.0
 	},
 	"pinned_build_system": "",
 	"project": "untitled.sublime-project",
@@ -824,7 +586,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 239.0,
+	"side_bar_width": 273.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

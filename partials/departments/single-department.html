@@ -1,16 +1,23 @@
 <div>
 	<div>
 		<ul>
+		{{department}}
 			<li ng-show="department.projects.length > 1">Projects:</li>
 			<li ng-show="department.projects.length = 1">Project:</li>
 			<li ng-hide="department.projects.length"><em>No Projects</em></li>
-			<ul ng-repeat="project in department.projects" ng-show="department.projects.length">
-				<li><a ng-href="#/project/{{project.id}}">{{project.name || ""}}</a></li>
+			<ul ng-repeat="project in department.projects" ng-show="department.projects">
+				<li>
+					<a ng-href="#/project/{{project.id}}">
+						{{project.name || ""}}
+					</a>
+				</li>
 				<ul>
 					<li>Due: <a ng-href="#/deadline/{{project.deadlineId}}">{{getDeadline(project.deadlineId).date}}</a></li>
 					<li ng-show="project.resources.length">Resources:</li>
 					<ul>
-						<li ng-repeat="resource in project.resources"><a ng-href="#/resource/{{resource}}">{{getResource(resource).name}}</a></li>
+						<li ng-repeat="resource in project.resources">
+							<a ng-href="#/resource/{{resource}}">{{getResource(resource).name}}</a>
+						</li>
 					</ul>
 				</ul>
 			</ul>
