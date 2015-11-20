@@ -1,8 +1,12 @@
-<div>
-	<h3><span class="dimmer">Project:</span> {{project.name}}</h3>
+<div ng-init="openUpdateModal(project)">
+	<div>Link Back to <a ui-sref="{{state.parent}}">{{state.parent}}</a></div>
+	<h3><span class="text-muted">Project:</span> {{project.name || "Untitled Project" }}</h3>
 	<ul>
-		<li><span class="dimmer">Due:</span> {{project.deadline.date}}</li>
-		<li><span class="dimmer">Dept:</span> {{project.department.name}}</li>
-		<li ng-repeat="resource in project.resources"><span class="dimmer">Resource:</span> {{resource.name}}</li>
+		<li><span class="text-muted">Due:</span> {{getDeadline_Raw(project.deadlineId).date || "Unknown Deadline" }}</li>
+		<li><span class="text-muted">Dept:</span> {{getDepartment_Raw(project.departmentId).name || "Unknown Department" }}</li>
+		<li ng-repeat="resource in project.resources"><span class="text-muted">Resource:</span> {{getResource_Raw(resource).name || "Unknown Resource" }}</li>
 	</ul>
+	<hr></hr>
+	<button class="btn btn-info btn-sm" ng-click="openUpdateModal(project)">Edit Project</button>
+	<button class="btn btn-danger btn-sm" ng-click="openDeleteProjectModal(project)">Delete Project</button>
 </div>

@@ -1,71 +1,78 @@
 strict:true;
 
+
+
+
+
+
 (function(){
 	var app = angular.module('OrganizationApp',['ui.router', 'ui.bootstrap','FactoryModule']);
-	//console.log("[app.js loaded.]");
-
-	// Notice! I am using Angular Moment. This is purely for asthetics 
-	// and in no way is it used to sort things, 
-	// I just like plain text time messages. 
-
+	
 	app.config(function($stateProvider, $urlRouterProvider){
 		$urlRouterProvider.otherwise('/departments');
-		$stateProvider
-		//Department States
-			.state('departments',{
-				url:'/departments',
-				views:{
-					'@':{
-						templateUrl:'partials/departments/all-departments-regular.html',
-						controller: 'DepartmentsController'
-					}
-				}
-			}).state('departments.resources',{
-				url:'/resources',
-				views:{
-					'@':{
-						templateUrl:'partials/departments/all-departments-resource.html',
-						controller: 'DepartmentsController'
-					}
-				}
-			})
-		//Deadline States
-			.state('deadlines',{
-				url:'/deadlines',
-				views:{
-					'@':{
-						templateUrl:'partials/deadlines/all-deadlines-time.html',
-						controller:'DeadlinesController'
-					}
-				}
-			})
-		//Project States
-			.state('projects',{
-				url:'/projects',
-				views:{
-					'@':{
-						templateUrl:'partials/projects/all-projects-view.html',
-						controller: 'ProjectsController'
-					}
+		var projectStateBody = function(parentName){
 
-				}
-			})
-			.state('project',{
+				var obj = {
+				parent:parentName,
 				url:'/project/{id:int}',
 				views:{
 					'@':{
 						templateUrl:'partials/projects/single-project.html',
 						controller:'ProjectController'
+						}
 					}
 				}
-			})
+
+				return obj;
+			}
+		$stateProvider
+		//Department States
+			.state({
+				name:'departments',
+				url:'/departments',
+				views:{
+					'@':{
+						templateUrl:'partials/departments/all-departments-regular.html',
+						controller: 'DepartmentsController',
+					}
+				}
+
+				})
+			.state('departments.project',projectStateBody('departments'))
+			.state({
+				name:'departments.resources',
+				url:'/resources',
+				views:{
+					'@':{
+						templateUrl:'partials/departments/all-departments-resource.html',
+						controller: 'DepartmentsController',
+					}
+				}
+				})
+			.state("departments.resources.project",projectStateBody('departments.resources'))
+		//Deadline States
+			.state({
+				name:'deadlines',
+				url:'/deadlines',
+				templateUrl:'partials/deadlines/all-deadlines-time.html',
+				controller:'DeadlinesController'
+				})
+		//Project States
+			.state({
+				name:'projects',
+				url:'/projects',
+				templateUrl:'partials/projects/all-projects-view.html',
+				controller: 'ProjectsController'
+				})
+			//.state('project',projectStateBody)
 	});
 
 // Department Controllers:
 	app.controller('DepartmentsController',	['$scope', 'DataFactory', '$state', function($scope,DataFactory, $state){
-		$scope.departments = DataFactory.listAllDepartments();
+		$scope.departments = DataFactory.listAllDepartments_Full();
 		$scope.targetName = "Departments";
-
+		$scope.state = $state.current.name;
+		
 		$scope.addBadger = function(name, dept_id){
 			var newProject = {
 				"name":name + "Badger",
@@ -80,68 +87,53 @@ strict:true;
 			//console.log($scope.departments[index].projects);
 			//console.log(result);
 		}
-
-		$scope.getProject = function(project_id){
+		
+		$scope.getProject_Raw = function(project_id){
 			return DataFactory.getProject(project_id);
 		};
-		$scope.getResource = function(resource_Id){
+		$scope.getResource_Raw = function(resource_Id){
 			return DataFactory.getResource(resource_Id);
 		};
-		$scope.getDeadline = function(deadline_Id){
+		$scope.getDeadline_Raw = function(deadline_Id){
 			return DataFactory.getDeadline(deadline_Id);
 		};
-		}]);
-	app.controller('DepartmentController', 	['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
-		$scope.department = DataFactory.getDepartment($stateParams.id);
+
+		$scope.getDepartment_Full = function(department_id){
+			return DataFactory.getDepartment_Full(department_id);
+		};
+		$scope.getResource_Full = function(resource_Id){
+			return DataFactory.getResource_Full(resource_Id);
+		};
+		$scope.getDeadline_Full = function(deadline_Id){
+			return DataFactory.getDeadline_Full(deadline_Id);
+		};
 		}]);
 // Project Controllers:
-	app.controller('ProjectsController', ['$scope', 'DataFactory',  function($scope,DataFactory){
-		$scope.projects = DataFactory.listAllProjects();
-		$scope.getDepartment = function(department_id){
-			return DataFactory.getDepartment(department_id);
-		};
-		$scope.getResource = function(resource_Id){
+	app.controller('ProjectController',  ['$scope', 'DataFactory', '$stateParams','$state', function($scope,DataFactory,$stateParams,$state){
+		$scope.project = DataFactory.getProject($stateParams.id);
+		$scope.state = $state.current;
+
+		$scope.getResource_Raw = function(resource_Id){
 			return DataFactory.getResource(resource_Id);
 		};
-		$scope.getDeadline = function(deadline_Id){
+		$scope.getDeadline_Raw = function(deadline_Id){
 			return DataFactory.getDeadline(deadline_Id);
 		};
-		}]);
-	app.controller('ProjectController',  ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
-		$scope.project = DataFactory.getProject($stateParams.id);
+		$scope.getDepartment_Raw = function(department_id){
+			return DataFactory.getDepartment(department_id);
+		};
+
+		$scope.getDepartment_Full = function(department_id){
+			return DataFactory.getDepartment_Full(department_id);
+		};
+		$scope.getResource_Full = function(resource_Id){
+			return DataFactory.getResource_Full(resource_Id);
+		};
+		$scope.getDeadline_Full = function(deadline_Id){
+			return DataFactory.getDeadline_Full(deadline_Id);
+		};
 		}]);
 // Resource Controllers:
-	app.controller('ResourcesController', ['$scope', 'DataFactory',  function($scope,DataFactory){
-		$scope.resources = DataFactory.listAllResources();
-		$scope.getDepartment = function(department_id){
-			return DataFactory.getDepartment(department_id);
-		};
-		$scope.getProject = function(project_id){
-			return DataFactory.getProject(project_id);
-		};
-		$scope.getDeadline = function(deadline_Id){
-			return DataFactory.getDeadline(deadline_Id);
-		};
-		}]);
-	app.controller('ResourceController',  ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
-		$scope.resource = DataFactory.getResource($stateParams.id);
-		}]);
-// Deadline Controllers:
-	app.controller('DeadlinesController', ['$scope', 'DataFactory',  function($scope,DataFactory){
-		$scope.deadlines = DataFactory.listAllDeadlines();
-		$scope.getDepartment = function(department_id){
-			return DataFactory.getDepartment(department_id);
-		};
-		$scope.getResource = function(resource_Id){
-			return DataFactory.getResource(resource_Id);
-		};
-		$scope.getProject = function(project_id){
-			return DataFactory.getProject(project_id);
-		};
-		}]);
-	app.controller('DeadlineController',  ['$scope', 'DataFactory', '$stateParams', function($scope,DataFactory,$stateParams){
-		$scope.deadline = DataFactory.getDeadline($stateParams.id);
-		}]);
 
 	app.directive('sortBar', function(){
 		// Runs during compile

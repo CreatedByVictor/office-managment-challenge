@@ -1,0 +1,73 @@
+<div class="">
+	<div class="modal-header">
+	    <h3 class="modal-title"><small>Editing:</small> {{dataModel.name || "Untitled Project"}}</h3>
+	</div>
+	<div class="modal-body">
+		<div class="input-group">
+			<span class="input-group-addon" id="TitleInputLabel"><span ng-show="uniqueDept"></span>Name</span>
+			<input type="text" class="form-control" placeholder="What is the name of this Project?" aria-describedby="TitleInputLabel" ng-model="dataModel.name"></input>
+		</div>
+
+		<input ng-hide="true" type="text" ng-model="dataModel.deadlineId" class="form-control"></input>
+
+		<div class="input-group" ng-class="{ 'has-success': uniqueDept }">
+			<span class="input-group-addon" id="DeptInputLabel"><span ng-show="uniqueDept">Add </span>Department:</span>
+			<input type="text" class="form-control" required="true" placeholder="In which Department does this project belong?" 
+			aria-describedby="DeptInputLabel" ng-model="dataModel.departmentId" 
+			uib-typeahead="department.id as department.name for department in departments | filter:{name:$viewValue} " 
+			typeahead-input-formatter="formatDeptLabel($model)" typeahead-no-results="uniqueDept"></input>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title"><h4>Assigned Resources:</h4></div>
+			</div>
+			<ul class="list-group">
+
+
+				<li class="list-group-item" ng-class="{'panel-danger text-danger':resource.markForDeletion}" ng-repeat="resource in dataModel.resources">
+					<a class="text-danger" ng-hide="resource.markForDeletion" href>
+						<span ng-click="removeResourceFromProject(resource)" class="glyphicon glyphicon-remove"></span>
+					</a> 
+					<button class="btn btn-success btn-xs" 
+						ng-show="resource.markForDeletion" 
+						ng-click="resource.markForDeletion = undefined">Cancel
+					</button>
+					{{ getResource(resource).name }}
+					<button class="btn btn-danger btn-xs pull-right" ng-show="resource.markForDeletion">Remove</button>
+				</li>
+
+
+				<li ng-repeat="newResource in brandNewResources" class="list-group-item panel-success text-success">
+					<a class="text-danger" ng-click="removeResourceFromStagingArea(newResource)">
+						<span class="glyphicon glyphicon-remove" ng-click="toggleNewResDeleteConfirm(index$)"></span>
+					</a>
+					<button class="btn btn-success btn-xs pull-right" ng-show="isNormalResDeleteConfirm($index)">Cancel</button>
+					{{ newResource }} 
+					<em ng-hide="isResDeleteConfirm($index)">
+						( will be added to database )
+					</em>
+					<button class="btn btn-danger btn-xs pull-right" ng-show="isResDeleteConfirm($index)">Remove</button>
+				</li>
+
+
+			</ul>
+			<div class= "panel-footer">
+			<div class="input-group" ng-class="{ 'has-success': uniqueRes}">
+				<input type="text" class="form-control" required="true" placeholder="Choose A Resource To Add" aria-describedby="ResInputLabel" 
+				ng-model="addResourceObj" 
+				uib-typeahead="resource.id as resource.name for resource in resourcesNotInProject() | filter:{name:$viewValue} " 
+				typeahead-input-formatter="formatResLabel($model)" typeahead-no-results="uniqueRes"></input>
+				<span class="input-group-btn" id="ResInputLabel">
+					<button class="btn" ng-class="{ 'btn-success':uniqueRes, 'btn-info':!uniqueRes }" type="button" ng-click="insertResourceInCorrectList()">
+						Add<span ng-show="uniqueRes"> New</span> Resource
+					</button>
+				</span>
+			</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-success btn-xl" ng-click = "ok(dataModel)">OKAY</button>
+		<button class="btn btn-danger btn-xl" ng-click = "cancel()">CANCEL</button>
+	</div>
+</div>

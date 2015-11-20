@@ -6,7 +6,121 @@
 	///////////////////////////////////////////////
 
 (function(){
-	var app = angular.module('FactoryModule',[])
+	var app = angular.module('FactoryModule', ['ui.bootstrap', 'ModalModule']);
+
+	app.controller('DataMachineController', ['$scope', 'DataFactory', '$uibModal', function($scope, DataFactory, uibModal){
+
+		/////////////////////////////////////
+		// It adds, It removes, It updates //
+		//  and it handles all the modals  //
+		//  and is, by design, available   //
+		//   to all that might need it     //
+		/////////////////////////////////////
+
+		var emptyProject = {
+				name:undefined,
+				departmentId:undefined,
+				deadlineId:undefined,
+				resources:[]
+			};
+
+		$scope.newDepartmentModel 		= undefined;
+		$scope.newResourceModel 		= undefined;
+		$scope.newDeadlineModel 		= undefined;
+		$scope.newProjectModel 			= emptyProject;
+
+		$scope.addProject = function(){
+			var attempt = DataFactory.addProject($scope.newProjectModel);
+			if (attempt){
+				$scope.newProject = emptyProject; // Reset the model.
+				console.log(" Successfully added new project.");
+			}
+		};
+		$scope.addDeadline = function(){
+			var attempt = DataFactory.addDeadline($scope.newDeadlineModel);
+			if (attempt){
+				$scope.newDeadline = undefined; // Reset the model.
+				console.log("Successfully added new Deadline.");
+			}
+		};
+		$scope.addResource = function(){
+			var attempt = DataFactory.addResource($scope.newResourceModel);
+			if (attempt){
+				$scope.newResource = undefined; // Reset the model.
+				console.log("Successfully added new Resource.");
+			}
+		};
+		$scope.addDepartment = function(){
+			var attempt = DataFactory.addDepartment($scope.newDepartmentModel);
+			if (attempt){
+				$scope.newDepartmentModel = undefined; // Reset the model.
+				console.log("Successfully added new Department.");
+			}
+		};
+
+		$scope.removeProject = function(id){
+			DataFactory.removeProject(id);
+		};
+		$scope.removeDeadline = function(id){
+			DataFactory.removeDeadline(id);
+		};
+		$scope.removeResource = function(id){
+			DataFactory.removeResource(id);
+		};
+		$scope.removeDepartment = function(id){
+			DataFactory.removeDepartment(id);
+		};
+
+		$scope.updateProject = function(id, dataObject){
+			DataFactory.updateProject(id, dataObject);
+		};
+		$scope.updateDeadline = function(id, newDate){
+			var dataObject = {
+				date: newDate,
+			};
+			DataFactory.updateDeadline(id, dataObject);
+		};
+		$scope.updateResource = function(id, newName){
+			var dataObject = {
+				name: newName,
+			};
+			DataFactory.updateResource(id, dataObject);
+		};
+		$scope.updateDepartment = function(id, newName){
+			var dataObject = {
+				name: newName,
+			};
+			DataFactory.updateDepartment(id, dataObject);
+		};
+
+		$scope._oldModelData = {}; //Backup Holder
+
+		$scope.openUpdateModal = function(projectObject){ 
+			//console.log(message);
+
+			$scope._oldModelData = angular.copy(projectObject); //make backup.
+
+			var modalInstanceVariable = uibModal.open({
+				animation:true,
+				templateUrl:"modals/modal-update-project.html",
+				controller:"UpdateModalController",
+				resolve:{
+					dataModel: function(){
+						return projectObject;
+						}
+					}
+				});
+			modalInstanceVariable.result.then(function(outputData){
+				$scope.updateProject(outputData.id,outputData);
+				console.info("Updated Project ID:",outputData.id);
+				//$scope.outputMessage = outputData;
+			}, function(reason){
+				console.info('modal Dismissed at: ' + new Date());
+				angular.copy($scope._oldModelData, projectObject); // reset to backup.
+			});
+
+		};
+	}]);
 
 	app.factory('DataFactory', function(){
 
@@ -166,7 +280,7 @@
 				return output;
 			}
 			else {
-				console.error("Could not retreve an object with the id " + id + " from " + arrayName);
+				//console.error("Could not retreve an object with the id " + id + " from " + arrayName);
 				return null;
 			}
 		};
@@ -241,11 +355,17 @@
 
 		function addProject(inputObject){
 			var output = inputObject;
-			output["id"] = _addOneToLargestId(ConvertedDataset['projects']);
+			output["id"] = _addOneToLargestId(ConvertedDataset['projects']); // will overwrite whatever is written as the id.
 			
 			ConvertedDataset["projects"].push(output);
-			return getProject(output.id);
-			//console.log(listAllProjects());
+			var verifiedProject = getProject_Full(output.id);
+			if (verifiedProject){
+				return verifiedProject;
+			}
+			else{
+				console.log("Had trouble adding that project.");
+				return null;
+			}
 		};
 		function addDepartment(name){
 			var output = {
@@ -253,6 +373,16 @@
 				"name":name
 			}
 			ConvertedDataset["departments"].push(output);
+
+			var verifiedDepartment = getDepartment_Full(output.id);
+
+			if (verifiedDepartment){
+				return verifiedDepartment;
+			}
+			else{
+				console.log("Had trouble adding that Department.");
+				return null;
+			}
 		};
 		function addResource(name){
 			var output = {
@@ -260,6 +390,14 @@
 				"name":name
 			}
 			ConvertedDataset["resources"].push(output);
+			var verifiedResource = getResource_Full(output.id);
+			if (verifiedResource){
+				return verifiedResource;
+			}
+			else{
+				console.log("Had trouble adding that Resource.");
+				return null;
+			}
 		};
 		function addDeadline(date){
 			var output = {
@@ -267,6 +405,14 @@
 				"date":date
 			}
 			ConvertedDataset["deadlines"].push(output);
+			var verifiedDeadline = getDeadline_Full(output.id);
+			if(verifiedDeadline){
+				return verifiedDeadline;
+			}
+			else{
+				console.log("Had trouble adding that Deadline.");
+				return null;
+			}
 		};
 
 		//////////////
@@ -291,19 +437,26 @@
 		function getProject_Full(id){
 			var output = {};
 			var project = getProject(id);
-			output.id = project.id;
-			output.name = project.name;
-			output.deadline = getDeadline(project.deadlineId);
-			output.department = getDepartment(project.departmentId);
-			var pResources = function(resourceArray){
-				var res = [];
-				for (var i = 0; i < resourceArray.length; i++){
-					res.push(getResource(resourceArray[i]));
+			if (project){
+				output.id = project.id;
+				output.name = project.name;
+				output.deadline = getDeadline(project.deadlineId);
+				output.deadlineId = project.deadlineId;
+				output.department = getDepartment(project.departmentId);
+				output.departmentId = project.departmentId;
+				var pResources = function(resourceArray){
+					var res = [];
+					for (var i = 0; i < resourceArray.length; i++){
+						res.push(getResource(resourceArray[i]));
+					}
+					return res;
 				}
-				return res;
+				output.resources = project.resources;
+				output.resources_full = pResources(project.resources);
+				return output;
+			} else{
+				return null;
 			}
-			output.resources = pResources(project.resources);
-			return output;
 		};
 
 		function getDepartment(id){
@@ -312,20 +465,25 @@
 		function getDepartment_Full(id){
 			var output = {};
 			var dept = getDepartment(id);
-			output.id = dept.id;
-			output.name = dept.name;
-			output.projects = getAllDepartmentProjectIds(dept.id).map(function(projectId){
-				return getProject(projectId);
-			});
-			output.resources = getAllDepartmentResourceIds(dept.id).map(function(resourceId){
-				//console.log("returned resource:",resourceID)
-				return getResource(resourceId);
-			});
-			output.deadlines = getAllDepartmentDeadlineIds(dept.id).map(function(deadlineId){
-				return getDeadline(deadlineId);
-			});
-			output.nearestDeadline_epoch = _returnNearestDeadlineEpoch(output.deadlines);
-			return output;
+			if (dept){
+				output.id = dept.id;
+				output.name = dept.name;
+				output.projects = getAllDepartmentProjectIds(dept.id).map(function(projectId){
+					return getProject(projectId);
+				});
+				output.resources = getAllDepartmentResourceIds(dept.id).map(function(resourceId){
+					//console.log("returned resource:",resourceID)
+					return getResource(resourceId);
+				});
+				output.deadlines = getAllDepartmentDeadlineIds(dept.id).map(function(deadlineId){
+					return getDeadline(deadlineId);
+				});
+				output.nearestDeadline_epoch = _returnNearestDeadlineEpoch(output.deadlines);
+				return output;
+			}
+			else{
+				return null;
+			}
 		};
 
 		function getResource(id){
@@ -334,19 +492,24 @@
 		function getResource_Full(id){
 			var output = {};
 			var resource = getResource(id);
-			output.id = resource.id;
-			output.name = resource.name;
-			output.projects = getAllResourcesProjectIds(resource.id).map(function(project_id){
-				return getProject(project_id);
-			});
-			output.departments = getAllResourceDepartmentIds(resource.id).map(function(dept_id){
-				return getDepartment(dept_id);
-			});
-			output.deadlines = getAllResourceDeadlineIds(resource.id).map(function(deadline_id){
-				return getDeadline(deadline_id);
-			output.nearestDeadline_epoch = _returnNearestDeadlineEpoch(output.deadlines);
-			});
-			return output;
+			if (resource){
+				output.id = resource.id;
+				output.name = resource.name;
+				output.projects = getAllResourcesProjectIds(resource.id).map(function(project_id){
+					return getProject(project_id);
+				});
+				output.departments = getAllResourceDepartmentIds(resource.id).map(function(dept_id){
+					return getDepartment(dept_id);
+				});
+				output.deadlines = getAllResourceDeadlineIds(resource.id).map(function(deadline_id){
+					return getDeadline(deadline_id);
+				output.nearestDeadline_epoch = _returnNearestDeadlineEpoch(output.deadlines);
+				});
+				return output;
+			}
+			else{
+				return null;
+			}
 		};
 
 		function getDeadline(id){
@@ -358,19 +521,24 @@
 		function getDeadline_Full(id){
 			var output = {};
 			var deadline = getDeadline(id);
-			output.id = deadline.id;
-			output.date = deadline.date;
-			output.date_epoch = Date.parse(deadline.date);
-			output.projects = getAllDeadlineProjectIds(deadline.id).map(function(project_id){
-				return getProject(project_id);
-			});
-			output.departments = getAllDeadlineDepartmentIds(deadline.id).map(function(dept_id){
-				return getDepartment(dept_id);
-			});
-			output.resources = getAllDeadlineResourceIds(deadline.id).map(function(res_id){
-				return getResource(res_id);
-			});
-			return output;
+			if (deadline){
+				output.id = deadline.id;
+				output.date = deadline.date;
+				output.date_epoch = Date.parse(deadline.date);
+				output.projects = getAllDeadlineProjectIds(deadline.id).map(function(project_id){
+					return getProject(project_id);
+				});
+				output.departments = getAllDeadlineDepartmentIds(deadline.id).map(function(dept_id){
+					return getDepartment(dept_id);
+				});
+				output.resources = getAllDeadlineResourceIds(deadline.id).map(function(res_id){
+					return getResource(res_id);
+				});
+				return output;
+			}
+			else{
+				return null;
+			}
 		};
 
 		function getProjectDeadlineId(id){
@@ -524,7 +692,7 @@
 		};
 
 		//List Alls:
-		function getAllData(){
+		function getRawData(){
 			return ConvertedDataset;
 		};
 		function listAllProjects(){
@@ -604,31 +772,32 @@
 			"updateDepartment": 			updateDepartment,
 
 			// Returns //
-			"getAllData": 					getAllData,
+			"getRawData": 					getRawData,
 			"getIndexOfId": 				_getIndexOfId, //this is a helper that I intentionally exposed.
-			/*
+			
+			
 			"listAllProjects": 				listAllProjects,
 			"listAllDeadlines": 			listAllDeadlines,
 			"listAllResources": 			listAllResources,
 			"listAllDepartments": 			listAllDepartments,
-			*/
 			
-			"listAllProjects": 				listAllProjects_Full,
-			"listAllDeadlines": 			listAllDeadlines_Full,
-			"listAllResources": 			listAllResources_Full, 
-			"listAllDepartments": 			listAllDepartments_Full, 
 			
-			/*
+			"listAllProjects_Full": 		listAllProjects_Full,
+			"listAllDeadlines_Full": 		listAllDeadlines_Full,
+			"listAllResources_Full": 		listAllResources_Full, 
+			"listAllDepartments_Full": 		listAllDepartments_Full, 
+			
+			
 			"getProject": 					getProject,
 			"getDeadline": 					getDeadline,
 			"getResource": 					getResource,
 			"getDepartment": 				getDepartment, 
-			*/
 			
-			"getProject": 					getProject_Full,
-			"getDeadline": 					getDeadline_Full,
-			"getResource": 					getResource_Full,
-			"getDepartment": 				getDepartment_Full, 
+			
+			"getProject_Full": 				getProject_Full,
+			"getDeadline_Full": 			getDeadline_Full,
+			"getResource_Full": 			getResource_Full,
+			"getDepartment_Full": 			getDepartment_Full, 
 			
 			/*
 			"getProjectDeadlineId": 		getProjectDeadlineId,
@@ -649,4 +818,5 @@
 			*/
 		};
 	});
+	
 })()

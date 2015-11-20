@@ -1,7 +1,7 @@
 <div>
 	<div class="well"> 
 		<h1>All Departments</h1>
-		<p>Sort Projects By: {{radioModel ? true :"Yes"}}</p>
+		<p>Sort Projects By</p>
 	    <div class="btn-group">
 	        <label class="btn btn-primary" ui-sref="departments" ng-model="radioModel" uib-btn-radio="'true'">Nearest Due Date</label>
 	        <label class="btn btn-primary" ui-sref=".resources" ng-model="radioModel" uib-btn-radio="'false'">Resource Count</label>
@@ -14,11 +14,16 @@
 					{{dept.name || "Untitled Department"}}
 				</h2>
 			</li>
-			<ul class="project" ng-repeat="project in dept.projects | orderBy : 'getDeadline(project.id).date_epoch'" ng-show="dept.projects.length">
-				<li><span class="dimmer">Project:</span>{{project.name || "Untitled Project"}}</li>
-				<li><span class="dimmer">Due:</span> {{getDeadline(project.deadlineId).date || "no deadline specified."}}</li>
+			<ul class="project" ng-repeat="project in dept.projects | orderBy : 'getDeadline_Full(project.id).date_epoch' " ng-show="dept.projects.length">
+				<li>
+					<h4>
+						<span class="text-muted">Project:</span>
+						<a ui-sref=".project({id: project.id})">{{project.name || "Untitled Project"}}</a>
+					</h4>
+				</li>
+				<li><span class="text-muted">Due:</span> {{getDeadline_Full(project.deadlineId).date || "no deadline specified."}}</li>
 				<li ng-repeat="resource in project.resources">
-					<span class="dimmer">Resource:</span> {{getResource(resource).name}}
+					<span class="text-muted">Resource:</span> {{getResource_Full(resource).name}}
 				</li>
 			</ul>
 			<ul ng-hide="dept.projects.length">
